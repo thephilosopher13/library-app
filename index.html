@@ -1,0 +1,72 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="javascript.js"></script>
+</head>
+<body>
+    <div class=sidenav>
+        <div class=logo>
+            <div></div>
+            <h1>Library</h1>
+        </div>
+        <form id="addBookForm">
+            <fieldset>
+                <legend>Add a new book:</legend>        
+                <div>
+                    <label for="title"></label>
+                    <input type="text" id="title" name="title" placeholder="Title of book" autocomplete="off" required>
+                    <div class="error"></span>
+                </div>
+                <div>
+                    <input type="text" id="author" name="author" placeholder="Author" autocomplete="off" required>
+                    <div class="error"></span>
+                </div>
+                <div>
+                    <input type="number" id="pages" name="pages" placeholder="Number of Pages" autocomplete="off" required>
+                    <div class="error"></span>
+                </div>
+                <div>
+                    <label for="" class="checkbox"></label>
+                    <input type="checkbox" name="checkbox" id="hasRead">
+                    <span>I have read this book!</span>
+                </div> 
+            </fieldset>
+            <button type="submit">Add Book</button>
+        </form>
+        <div class="footer"></div>
+    </div>
+    <div class="main">
+        <div class="table">
+            <table id="libraryTable">    
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Pages</th>
+                        <th>Read?</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
