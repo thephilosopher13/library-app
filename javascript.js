@@ -6,16 +6,15 @@ const tbody = table.querySelector('tbody');
 const getRecentlyCreatedBook = myLibrary[myLibrary.length - 1];
 const rowCreator = document.createElement('tr')
 const cellCreator = document.createElement('td');
+const buttonCreator = document.createElement('button');
+
 
 
 // Variables for searching for a certain object
-var recentlyCreatedBook = books[books.length - 1]
+const recentlyCreatedBook = books[books.length - 1]
+const bookIndex = myLibrary.indexOf()
 
-class Library {
-    addBooktoLibrary(book) {
-        myLibrary.push(book);
-    }
-    
+class tableItemCreators {
     createCell(property, content) {
         const newCell = cellCreator.cloneNode();
         newCell.textContent = content;
@@ -23,11 +22,34 @@ class Library {
         return newCell;
     }
 
+    createButton(whatButtonDoes, clickHandler) {
+        const button = buttonCreator.cloneNode();
+        button.textContent = whatButtonDoes;
+        button.addEventListener('click', clickHandler)
+    }
+
     // functionality for button to toggle the hasRead property
-    toggleReadStatus(book, row, hasRead) {
+    toggleReadStatus(book, row, hasRead, array, index) {
         book.hasRead = !hasRead;
-        newRow.querySelector('.hasRead').textContent = book.hasRead ? 'Yes' : 'No';
+        row.querySelector('.hasRead').textContent = book.hasRead ? 'Yes' : 'No';
+        array[index].hasRead = book.hasRead;
     } 
+
+    //functionality for button that deletes the row
+    deleteBook(row, index) {
+        row.remove();
+        myLibrary.splice(index, 1)
+    }
+
+}
+
+
+class Library {
+    addBooktoLibrary(book) {
+        myLibrary.push(book);
+    }
+
+    // functionality for button to toggle the hasRead property
 
     addRecentlyCreatedBookToTable(book) {
         const newRow = rowCreator.cloneNode();
