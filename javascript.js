@@ -37,6 +37,7 @@ function createCell(content) {
 function createButton(whatButtonDoes, clickHandler) {
     const button = buttonCreator.cloneNode();
     button.textContent = whatButtonDoes;
+    button.clasList.add('tableButton')
     button.addEventListener('click', clickHandler)
     return button;
 }
@@ -86,10 +87,10 @@ function addRecentlyCreatedBookToTable() {
     newRow.appendChild(createCheckboxCell(book.hasRead, book, myLibrary.indexOf(book)));
 
     const deleteButtonCell = cellCreator.cloneNode();
-
-  deleteButtonCell.appendChild(createButton('Delete', () =>
+    
+    deleteButtonCell.appendChild(createButton('Delete', () =>
     deleteBook(newRow, myLibrary.indexOf(book))
-  ));
+    ));
 
     newRow.appendChild(deleteButtonCell)
     tbody.appendChild(newRow);

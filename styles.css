@@ -14,14 +14,33 @@ body {
     color: white;
 }
 
+.logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.logo > h1,
+.svg {
+    height: 3rem;
+}
+
+.svg {
+    fill: white;
+    padding: 1rem;
+}
+
 .main {
     padding: 10%;
+    background-color: #ecfeff;
+    display: grid;
+    justify-items: center; 
 }
 
 #librarytable {
     border-collapse: collapse;
     border: 2px solid black;
-    letter-spacing: 1px;
+    letter-spacing: .1rem;
     font-size: 1rem;
 }
 
@@ -30,12 +49,36 @@ th, td {
     padding: 0.5rem 1rem;
 }
 
+button {
+    padding: 0.5rem;
+    border-radius: 5%;
+    border: 1px solid #bbb;
+    font-weight: 600;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    letter-spacing: .1rem;
+}
+
+.submitbutton {
+    color: #555;
+    background-color: #ecfeff;
+    width: 10rem;
+}
+
+.tableButton {
+    background-color: #f87171;
+    color: white;
+}
 fieldset,
 .authordiv,
 .titlediv,
 .pagesdiv {
     display: flex;
     flex-direction: column;
+}
+
+fieldset {
+    border-radius: 10%;
 }
 
 #addBookForm > fieldset {
@@ -47,7 +90,7 @@ fieldset,
 input {
     border: 2px solid gray;
     box-shadow: 2px 2px 4px darkgray; 
-    border-radius: 10%;
+    border-radius: 5%;
 }
 
 input:invalid:not(:placeholder-shown) {
