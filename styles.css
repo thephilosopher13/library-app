@@ -1,0 +1,75 @@
+body {
+    height: 100vh; 
+    width: 100vw;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    display: grid;
+    grid-template-columns: auto 7fr;
+    margin: 0;
+}
+
+.sidenav {
+    background-color: darkslategray;
+    padding: 24px;
+    color: white;
+}
+
+.main {
+    padding: 10%;
+}
+
+#librarytable {
+    border-collapse: collapse;
+    border: 2px solid black;
+    letter-spacing: 1px;
+    font-size: 1rem;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+}
+
+fieldset,
+.authordiv,
+.titlediv,
+.pagesdiv {
+    display: flex;
+    flex-direction: column;
+}
+
+#addBookForm > fieldset {
+    gap: 12px;
+    padding-top: 12px;
+    font-weight: 600;
+}
+
+input {
+    border: 2px solid gray;
+    box-shadow: 2px 2px 4px darkgray; 
+    border-radius: 10%;
+}
+
+input:invalid:not(:placeholder-shown) {
+    border: 2px solid red;
+    box-shadow: 2px 2px 4px darkgray; 
+}
+
+input:invalid:not(:placeholder-shown) + span.title-error:before,
+input:invalid:not(:placeholder-shown) + span.author-error:before,
+input:invalid:not(:placeholder-shown) + span.pages-error:before {
+    color: red;
+    font-size: 0.5rem;
+}
+
+input:invalid:not(:placeholder-shown) + span.title-error:before {
+    content: "Please put a valid title.";
+}
+
+input:invalid:not(:placeholder-shown) + span.author-error:before {
+    content: "Please put a valid author's name.";
+}
+
+input:invalid:not(:placeholder-shown) + span.pages-error:before {
+    content: "Please put a valid number of pages.";
+}
