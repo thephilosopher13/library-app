@@ -14,44 +14,40 @@ const buttonCreator = document.createElement('button');
 const recentlyCreatedBook = books[books.length - 1]
 const bookIndex = myLibrary.indexOf()
 
-class tableItemCreators {
-    createCell(property, content) {
+    function createCell(property, content) {
         const newCell = cellCreator.cloneNode();
         newCell.textContent = content;
         newCell.classList.add(property);
         return newCell;
     }
 
-    createButton(whatButtonDoes, clickHandler) {
+    function createButton(whatButtonDoes, clickHandler) {
         const button = buttonCreator.cloneNode();
         button.textContent = whatButtonDoes;
         button.addEventListener('click', clickHandler)
     }
 
     // functionality for button to toggle the hasRead property
-    toggleReadStatus(book, row, hasRead, array, index) {
+    function toggleReadStatus(book, row, hasRead, array, index) {
         book.hasRead = !hasRead;
         row.querySelector('.hasRead').textContent = book.hasRead ? 'Yes' : 'No';
         array[index].hasRead = book.hasRead;
     } 
 
     //functionality for button that deletes the row
-    deleteBook(row, index) {
+    function deleteBook(row, index) {
         row.remove();
         myLibrary.splice(index, 1)
     }
 
-}
 
-
-class Library {
-    addBooktoLibrary(book) {
+    function addBooktoLibrary(book) {
         myLibrary.push(book);
     }
 
     // functionality for button to toggle the hasRead property
 
-    addRecentlyCreatedBookToTable(book) {
+    function addRecentlyCreatedBookToTable(book) {
         const newRow = rowCreator.cloneNode();
 
         newRow.appendChild(this.createCell(book.title));
@@ -59,14 +55,11 @@ class Library {
         newRow.appendChild(this.createCell(book.pages));
         newRow.appendChild(this.createCell(book.hasRead ? 'Yes' : 'No'));
 
+        newRow.appendChild(this.createButton('Toggle Read Status', () => toggleReadStatus(book, newRow, book.HasRead, myLibrary, myLibrary.indexOf(book))));
+        newRow.appendChild(this.createButton('Edit', none));
+        newRow.appendChild(this.createButton('Delete', () => deleteBook(newRow, myLibrary.indexOf(book))));
         tbody.appendChild(newRow);
-
     }
-
-
-
-
-}
 
 class Book {
     constructor(title, author, pages, hasRead) {
