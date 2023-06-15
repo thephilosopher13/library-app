@@ -1,19 +1,9 @@
 let myLibrary = [];
 
-// Variables relating to table creation, editing and clearing
-const table = document.getElementById('libraryTable');
-const tbody = table.querySelector('tbody');
-const rowCreator = document.createElement('tr')
-const cellCreator = document.createElement('td');
-const buttonCreator = document.createElement('button');
-const checkboxCreator = document.createElement('input');
-const $title = document.querySelector('#title');
-const $author = document.querySelector('#author');
-const $pages = document.querySelector('#pages');
-const $hasRead = document.querySelector('#hasRead');
+const addBookForm = document.getElementById('addBookForm');
 
-
-function Book(title, author, pages, hasRead) {
+class Book {
+    constructor(title, author, pages, hasRead) {
         this.title = title;
         this.author = author;
         this.pages = pages
@@ -24,91 +14,108 @@ function Book(title, author, pages, hasRead) {
           };
       }
 
-// Variables for searching for a certain object
-const recentlyCreatedBook = myLibrary[myLibrary.length - 1]
-const bookIndex = myLibrary.indexOf()
-
-function createCell(content) {
-    const newCell = cellCreator.cloneNode();
-    newCell.textContent = content;
-    return newCell;
 }
 
-function createButton(whatButtonDoes, clickHandler) {
-    const button = buttonCreator.cloneNode();
-    button.textContent = whatButtonDoes;
-    button.clasList.add('tableButton')
-    button.addEventListener('click', clickHandler)
-    return button;
-}
+const tableCreator = (() => {
 
-function createCheckboxCell(checked, book, index) {
-    const cell = cellCreator.cloneNode();
-    const checkbox = checkboxCreator.cloneNode();
-    checkbox.type = 'checkbox'
-    checkbox.checked = checked;
-    checkbox.classList.add('hasRead')
+    const table = document.getElementById('libraryTable');
+    const tbody = table.querySelector('tbody');
+    const rowCreator = document.createElement('tr')
+    const cellCreator = document.createElement('td');
+    const buttonCreator = document.createElement('button');
+    const checkboxCreator = document.createElement('input');
 
-    checkbox.addEventListener('change', (e) => {
-        const isChecked = e.target.checked
-        book.hasRead = isChecked;
-        myLibrary[index].hasRead = isChecked;
-        console.log(myLibrary);
-    });
+    const _createCell = (content)  => {
+        const newCell = cellCreator.cloneNode();
+        newCell.textContent = content;
+        return newCell;
+    }
 
-    cell.appendChild(checkbox);
-    return cell;
-}
+    const _createButton = (whatButtonDoes, clickHandler) => {
+        const button = buttonCreator.cloneNode();
+        button.textContent = whatButtonDoes;
+        button.classList.add('tableButton')
+        button.addEventListener('click', clickHandler)
+        return button;
+    }
 
-//functionality for button that deletes the row
-function deleteBook(row, index) {
-    row.remove();
-    myLibrary.splice(index, 1)
-}
-
-
-function addBookToLibrary(title, author, pages, hasRead) {
-    let newBook = new Book(title, author, pages, hasRead);
-    console.log(newBook);
-    myLibrary.push(newBook);
-
-    addRecentlyCreatedBookToTable();
-};
-
-// functionality for button to toggle the hasRead property
-
-function addRecentlyCreatedBookToTable() {
-    const newRow = rowCreator.cloneNode();
-    const book = myLibrary[myLibrary.length - 1];
+    const _createCheckboxCell = (checked, book, index) => {
+        const cell = cellCreator.cloneNode();
+        const checkbox = checkboxCreator.cloneNode();
+        checkbox.type = 'checkbox'
+        checkbox.checked = checked;
+        checkbox.classList.add('hasRead')
     
-    newRow.appendChild(createCell(book.title,));
-    newRow.appendChild(createCell(book.author));
-    newRow.appendChild(createCell(book.pages));
-    newRow.appendChild(createCheckboxCell(book.hasRead, book, myLibrary.indexOf(book)));
-
-    const deleteButtonCell = cellCreator.cloneNode();
+        checkbox.addEventListener('change', (e) => {
+            const isChecked = e.target.checked
+            book.hasRead = isChecked;
+            myLibrary[index].hasRead = isChecked;
+            console.log(myLibrary);
+        });
     
-    deleteButtonCell.appendChild(createButton('Delete', () =>
-    deleteBook(newRow, myLibrary.indexOf(book))
-    ));
+        cell.appendChild(checkbox);
+        return cell;
+    }
 
-    newRow.appendChild(deleteButtonCell)
-    tbody.appendChild(newRow);
+    function addRecentlyCreatedBookToTable() {
+        const newRow = rowCreator.cloneNode();
+        const book = myLibrary[myLibrary.length - 1];
+        
+        newRow.appendChild(_createCell(book.title,));
+        newRow.appendChild(_createCell(book.author));
+        newRow.appendChild(_createCell(book.pages));
+        newRow.appendChild(_createCheckboxCell(book.hasRead, book, myLibrary.indexOf(book)));
+    
+        const deleteButtonCell = cellCreator.cloneNode();
+        
+        deleteButtonCell.appendChild(_createButton('Delete', () =>
+        libraryFunctions.deleteBook(newRow, myLibrary.indexOf(book))
+        ));
+    
+        newRow.appendChild(deleteButtonCell)
+        tbody.appendChild(newRow);
+        }
+
+    return {
+        addRecentlyCreatedBookToTable,
     }
 
 
+})();
 
-document.getElementById('addBookForm').addEventListener('submit', (e) => {
+const libraryFunctions = (() => {
+
+    const addBookToLibrary = (title, author, pages, hasRead) => {
+        let newBook = new Book(title, author, pages, hasRead);
+        console.log(newBook);
+        myLibrary.push(newBook);
+    
+        tableCreator.addRecentlyCreatedBookToTable();
+    };
+
+    function deleteBook(row, index) {
+        row.remove();
+        myLibrary.splice(index, 1)
+    }
+
+    return {
+        addBookToLibrary,
+        deleteBook
+    }
+
+})();
+
+
+// functionality for button to toggle the hasRead property
+
+addBookForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     // form values retrieval
-    let titleFromForm = $title.value;
-    let authorFromForm = $author.value;
-    let pageFromForm = $pages.value;
-    let hasReadFromForm = $hasRead.checked;
+    let titleFromForm = document.querySelector('#title').value;
+    let authorFromForm = document.querySelector('#author').value;
+    let pageFromForm = document.querySelector('#pages').value;
+    let hasReadFromForm = $$hasRead = document.querySelector('#hasRead').checked;
 
-    addBookToLibrary(titleFromForm, authorFromForm, pageFromForm, hasReadFromForm);
+    libraryFunctions.addBookToLibrary(titleFromForm, authorFromForm, pageFromForm, hasReadFromForm);
 });
-
-console.log(myLibrary)
-
